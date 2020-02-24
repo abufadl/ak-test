@@ -14,9 +14,6 @@ import os
 import shutil
 import requests
 
-#import nest_asyncio
-#nest_asyncio.apply()
-
         
 #!mkdir -p /root/.fastai/data/arwiki/corpus2_100/tmp/
 data_path = Config.data_path()
@@ -27,7 +24,7 @@ shutil.copy('./app/models/spm.model', path_t)
 
 #maybe?
 path = Path(__file__).parent
-shutil.copy('./app/models/spm.model', './app/root/.fastai/data/arwiki/corpus2_100/tmp') 
+#shutil.copy('./app/models/spm.model', './app/root/.fastai/data/arwiki/corpus2_100/tmp') 
 
 export_file_url = 'https://www.googleapis.com/drive/v3/files/1--scwn8SjaGBtIukFF1_K32QucNbAhIe?alt=media&key=AIzaSyArnAhtI95SoFCexh97Xyi0JHI03ghd-_0'
 export_file_name = 'ar_classifier_hard_sp15_multifit.pkl'
@@ -37,7 +34,7 @@ app = Starlette(debug=True)
 classes = ['-1', '1']
 defaults.device = torch.device('cpu')
 app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['X-Requested-With', 'Content-Type'])
-app.mount('/root/.fastai/data/arwiki/corpus2_100/tmp', StaticFiles(directory='/app/root/.fastai/data/arwiki/corpus2_100/tmp'))
+#app.mount('/root/.fastai/data/arwiki/corpus2_100/tmp', StaticFiles(directory='/app/root/.fastai/data/arwiki/corpus2_100/tmp'))
 #learn = load_learner('models')
 
 def predict_sentiment(txt):
@@ -47,9 +44,6 @@ def predict_sentiment(txt):
     print({"prediction": str(pred_class), "scores": sorted(zip(learn.data.classes, map(float, losses)), key=lambda p: p[1], reverse=True)})
     return JSONResponse({"prediction": str(pred_class), "scores": sorted(zip(learn.data.classes, map(float, losses)), key=lambda p: p[1], reverse=True)})
 
-# test vars 
-def diagnose():
-    return JSONResponse({"data_path": str(data_path), "path_t": str(path_t), "path": str(path) })
 
 def download_file(url, dest):
     if dest.exists(): return
@@ -106,9 +100,6 @@ def classify(request):
     the_text = request.query_params["sentence"]
     return predict_sentiment(the_text)
 
-@app.route("/test", methods=["GET"])
-def test():
-    return diagnose()
 
 @app.route('/')
 def form(request):
@@ -120,33 +111,33 @@ def form(request):
         box-sizing: border-box;
        }
 
-    #blueBox {
+    #blackBox {
         width: 700px;
         padding: 40px;  
-        border: 12px solid blue;
+        border: 4px solid black;
         text-align: left;
         position: absolute;
         left: 25%;
         }
 
-    #redBox {
+    #greenBox {
         width: 500px;
         padding: 10px;  
-        border: 2px solid red;
+        border: 2px solid green;
         }
 </style>
 
 
-    <div id="blueBox">       
+    <div id="blackBox">       
     <div style="text-align:center">
     <h1> Sentiment Classifier </h2>
     </div>
 
     
-    <div id="redBox">
+    <div id="greenBox">
     Enter your text:  
     <form action ="/classify" method="get">
-        <input type ="text" name ="sentence" value= "كان المكان نظيفا والطعام جيدا. أوصي به للأصدقاء.">
+        <input type ="text" name ="sentence" maxlength="100" size="100" value= "كان المكان نظيفا والطعام جيدا. أوصي به للأصدقاء.">
         <input type="submit" value="Get Sentiment">
     </form>
     </div>
