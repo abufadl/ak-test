@@ -96,8 +96,8 @@ learn = setup_learner()
 
 
 @app.route("/classify", methods=["GET"])
-async def classify(request):
-    the_text = await get_text(request.query_params["sentenc"])
+def classify(request):
+    the_text = request.query_params["sentenc"]
     return predict_sentiment(the_text)
 
 
