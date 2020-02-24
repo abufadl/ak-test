@@ -35,7 +35,7 @@ app = Starlette(debug=True)
 classes = ['-1', '1']
 defaults.device = torch.device('cpu')
 app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['X-Requested-With', 'Content-Type'])
-app.mount('/root/.fastai/data/arwiki/corpus2_100/tmp', StaticFiles(directory='./root/.fastai/data/arwiki/corpus2_100/tmp'))
+app.mount('/root/.fastai/data/arwiki/corpus2_100/tmp', StaticFiles(directory='/app/root/.fastai/data/arwiki/corpus2_100/tmp'))
 #learn = load_learner('models')
 
 def predict_sentiment(txt):
