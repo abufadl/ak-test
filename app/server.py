@@ -49,7 +49,7 @@ def predict_sentiment(txt):
 
 # test vars 
 def diagnose():
-        return return JSONResponse({"data_path": str(data_path), "path_t": str(path_t), "path": str(path) })
+    return JSONResponse({"data_path": str(data_path), "path_t": str(path_t), "path": str(path) })
 
 def download_file(url, dest):
     if dest.exists(): return
