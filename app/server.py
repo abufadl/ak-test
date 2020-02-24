@@ -13,7 +13,7 @@ import asyncio
 import os
 import shutil
 import requests
-
+import re
         
 #!mkdir -p /root/.fastai/data/arwiki/corpus2_100/tmp/
 data_path = Config.data_path()
@@ -26,7 +26,8 @@ shutil.copy('./app/models/spm.model', path_t)
 path = Path(__file__).parent
 #shutil.copy('./app/models/spm.model', './app/root/.fastai/data/arwiki/corpus2_100/tmp') 
 
-export_file_url = 'https://www.googleapis.com/drive/v3/files/1--scwn8SjaGBtIukFF1_K32QucNbAhIe?alt=media&key=AIzaSyArnAhtI95SoFCexh97Xyi0JHI03ghd-_0'
+#export_file_url = 'https://www.googleapis.com/drive/v3/files/1--scwn8SjaGBtIukFF1_K32QucNbAhIe?alt=media&key=AIzaSyArnAhtI95SoFCexh97Xyi0JHI03ghd-_0'
+export_file_url = 'https://www.googleapis.com/drive/v3/files/1D48EeJVzEUAf2YiomqZHZJaYlPYTOabk?alt=media&key=AIzaSyArnAhtI95SoFCexh97Xyi0JHI03ghd-_0'
 export_file_name = 'ar_classifier_hard_sp15_multifit.pkl'
 
 
@@ -37,9 +38,16 @@ app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['X-Reques
 #app.mount('/root/.fastai/data/arwiki/corpus2_100/tmp', StaticFiles(directory='/app/root/.fastai/data/arwiki/corpus2_100/tmp'))
 #learn = load_learner('models')
 
+accents = re.compile(r'[\u064b-\u0652\u0640]') # harakaat and tatweel (kashida) to remove  
+arabic_punc = re.compile(r'[\u0621-\u063A\u0641-\u064A\u061b\u061f\u060c\u003A\u003D\u002E\u002F\u007C]+') # to keep 
+def clean_text(x):
+    return ' '.join(arabic_punc.findall(accents.sub('',x)))
+
+
 def predict_sentiment(txt):
     #txt =  "كان المكان نظيفا والطعام جيدا. أوصي به للأصدقاء." #  (category 1)
-    pred_class, pred_idx, losses = learn.predict(txt)
+    txt_clean = clean_text(txt)
+    pred_class, pred_idx, losses = learn.predict(txt_clean)
     print(pred_class)
     print({"prediction": str(pred_class), "scores": sorted(zip(learn.data.classes, map(float, losses)), key=lambda p: p[1], reverse=True)})
     return JSONResponse({"prediction": str(pred_class), "scores": sorted(zip(learn.data.classes, map(float, losses)), key=lambda p: p[1], reverse=True)})
