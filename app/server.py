@@ -46,8 +46,7 @@ def clean_text(x):
 
 def predict_sentiment(txt):
     if len(txt) < 2:
-        return JSONResponse({"prediction": "Invalid Entry", "scores": "None", "key": "1 = positive, -1 = negative"}
-    #txt =  "كان المكان نظيفا والطعام جيدا. أوصي به للأصدقاء." #  (category 1)
+        return JSONResponse({"prediction": "Invalid Entry", "scores": "None", "key": "1 = positive, -1 = negative"})
     txt_clean = clean_text(txt)
     if len(txt_clean.split()) < 2:
         return JSONResponse({"prediction": "Invalid Entry", "scores": "None", "key": "1 = positive, -1 = negative"})
