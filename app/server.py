@@ -93,7 +93,6 @@ class WeightedLabelSmoothingCrossEntropy(nn.Module):
         return loss*self.eps/c + (1-self.eps) * F.nll_loss(log_preds, target, weight=self.weight, reduction=self.reduction)
 
 learn = setup_learner()
-learn.loss_func = FlattenedLoss(LabelSmoothingCrossEntropy)
 
 
 @app.route("/classify", methods=["GET"])
