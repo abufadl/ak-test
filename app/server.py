@@ -47,10 +47,12 @@ def clean_text(x):
 def predict_sentiment(txt):
     #txt =  "كان المكان نظيفا والطعام جيدا. أوصي به للأصدقاء." #  (category 1)
     txt_clean = clean_text(txt)
+    if len(txt_clean.split()) < 2:
+        return JSONResponse({"prediction": "Invalid Entry", "scores": "None", "key": "1 = positive, -1 = negative"})
     pred_class, pred_idx, losses = learn.predict(txt_clean)
     print(pred_class)
     print({"prediction": str(pred_class), "scores": sorted(zip(learn.data.classes, map(float, losses)), key=lambda p: p[1], reverse=True)})
-    return JSONResponse({"prediction": str(pred_class), "scores": sorted(zip(learn.data.classes, map(float, losses)), key=lambda p: p[1], reverse=True)})
+    return JSONResponse({"prediction": str(pred_class), "scores": sorted(zip(learn.data.classes, map(float, losses)), key=lambda p: p[1], reverse=True), "key": "1 = positive, -1 = negative"})
 
 
 def download_file(url, dest):
