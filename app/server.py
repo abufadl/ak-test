@@ -136,7 +136,7 @@ def form(request):
     
     <div id="redBox">
     Enter your text:  
-    <form action ="/classify-url" method="get">
+    <form action ="/classify" method="get">
         <input type ="text" name ="sentence">
         <input type="submit" value="Get Sentiment">
     </form>
