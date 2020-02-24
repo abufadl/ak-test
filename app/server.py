@@ -19,11 +19,13 @@ import requests
 
         
 #!mkdir -p /root/.fastai/data/arwiki/corpus2_100/tmp/
-#data_path = Config.data_path()
-#name = f'arwiki/corpus2_100/tmp/'
-#path = data_path/name
-#path.mkdir(exist_ok=True, parents=True)
-#shutil.copy('models/spm.model', path)
+data_path = Config.data_path()
+name = f'arwiki/corpus2_100/tmp/'
+path_t = data_path/name
+path_t.mkdir(exist_ok=True, parents=True)
+shutil.copy('./app/models/spm.model', path_t)
+
+#maybe?
 path = Path(__file__).parent
 shutil.copy('./app/models/spm.model', './app/root/.fastai/data/arwiki/corpus2_100/tmp') 
 
@@ -44,6 +46,10 @@ def predict_sentiment(txt):
     print(pred_class)
     print({"prediction": str(pred_class), "scores": sorted(zip(learn.data.classes, map(float, losses)), key=lambda p: p[1], reverse=True)})
     return JSONResponse({"prediction": str(pred_class), "scores": sorted(zip(learn.data.classes, map(float, losses)), key=lambda p: p[1], reverse=True)})
+
+# test vars 
+def diagnose():
+        return return JSONResponse({"data_path": str(data_path), "path_t": str(path_t), "path": str(path) })
 
 def download_file(url, dest):
     if dest.exists(): return
@@ -100,6 +106,9 @@ def classify(request):
     the_text = request.query_params["sentence"]
     return predict_sentiment(the_text)
 
+@app.route("/test", methods=["GET"])
+def test():
+    return diagnose()
 
 @app.route('/')
 def form(request):
