@@ -32,7 +32,7 @@ export_file_name = 'ar_classifier_hard_sp15_multifit.pkl'
 
 
 app = Starlette(debug=True)
-classes = ['-1', '1']
+classes = ['Negative', 'Positive']
 defaults.device = torch.device('cpu')
 app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['X-Requested-With', 'Content-Type'])
 #app.mount('/root/.fastai/data/arwiki/corpus2_100/tmp', StaticFiles(directory='/app/root/.fastai/data/arwiki/corpus2_100/tmp'))
