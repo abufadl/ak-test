@@ -108,7 +108,7 @@ learn = setup_learner()
 
 @app.route("/classify", methods=["GET"])
 def classify(request):
-    the_text = request.query_params["sentence"]
+    the_text = request.query_params["sentence"] or "Empty"
     return predict_sentiment(the_text)
 
 
@@ -148,7 +148,7 @@ def form(request):
     <div id="greenBox">
     Enter your text:  
     <form action ="/classify" method="get">
-        <input type ="text" name ="sentence" maxlength="100" size="50" value= "كان المكان نظيفا والطعام جيدا. أوصي به للأصدقاء.">
+        <input type ="text" name ="sentence" minlength="5" maxlength="100" size="50" value= "كان المكان نظيفا والطعام جيدا. أوصي به للأصدقاء.">
         <input type="submit" value="Get Sentiment">
     </form>
     </div>
