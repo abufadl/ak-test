@@ -112,8 +112,8 @@ def form(request):
        }
 
     #blackBox {
-        width: 700px;
-        padding: 40px;  
+        width: 800px;
+        padding: 20px;  
         border: 4px solid black;
         text-align: left;
         position: absolute;
@@ -121,7 +121,7 @@ def form(request):
         }
 
     #greenBox {
-        width: 500px;
+        width: 600px;
         padding: 10px;  
         border: 2px solid green;
         }
@@ -137,7 +137,7 @@ def form(request):
     <div id="greenBox">
     Enter your text:  
     <form action ="/classify" method="get">
-        <input type ="text" name ="sentence" maxlength="100" size="100" value= "كان المكان نظيفا والطعام جيدا. أوصي به للأصدقاء.">
+        <input type ="text" name ="sentence" maxlength="100" size="50" value= "كان المكان نظيفا والطعام جيدا. أوصي به للأصدقاء.">
         <input type="submit" value="Get Sentiment">
     </form>
     </div>
