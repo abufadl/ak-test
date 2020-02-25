@@ -45,7 +45,7 @@ def clean_text(x):
 
 
 def predict_sentiment(txt):
-    if txt is None not txt or len(txt.strip()) < 5:
+    if txt is None or not txt or len(txt.strip()) < 5:
         return JSONResponse({"prediction": "Invalid Entry", "scores": "None", "key": "1 = positive, -1 = negative"})
     txt_clean = clean_text(txt)
     if len(txt_clean.split()) < 2:
