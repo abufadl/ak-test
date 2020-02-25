@@ -155,8 +155,10 @@ def form(request):
     </div>
     
     </div>
+    <div>
         <hr />
     By Abed Khooli (Twitter: @akhooli)
+    </div>
     """)
 
 if __name__ == '__main__':
