@@ -108,7 +108,7 @@ learn = setup_learner()
 
 @app.route("/classify", methods=["GET"])
 def classify(request):
-    the_text = request.query_params["sentence"] or "Empty"
+    the_text = request.query_params["sentence"]
     return predict_sentiment(the_text)
 
 
