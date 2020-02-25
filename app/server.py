@@ -159,11 +159,12 @@ def form(request):
     </form>
     </div>
     
-    </div>
     <div id="cleared">
-        <hr />
     By Abed Khooli (Twitter: @akhooli)
     </div>
+    
+    </div>
+
     """)
 
 if __name__ == '__main__':
