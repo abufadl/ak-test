@@ -109,6 +109,7 @@ learn = setup_learner()
 @app.route("/classify", methods=["GET"])
 def classify(request):
     the_text = request.query_params["sentence"]
+    if not the_text: the_text ='Empty'
     return predict_sentiment(the_text)
 
 
@@ -154,6 +155,8 @@ def form(request):
     </div>
     
     </div>
+        <hr />
+    By Abed Khooli (Twitter: @akhooli)
     """)
 
 if __name__ == '__main__':
