@@ -160,7 +160,7 @@ def form(request):
     </div>
     
     </div>
-    <div in="cleared">
+    <div id="cleared">
         <hr />
     By Abed Khooli (Twitter: @akhooli)
     </div>
